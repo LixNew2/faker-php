@@ -2,6 +2,7 @@
 
 namespace Xefi\Faker\Container\Traits;
 
+use Xefi\Faker\Strategies\OptionalStrategy;
 use Xefi\Faker\Strategies\RegexStrategy;
 use Xefi\Faker\Strategies\Strategy;
 use Xefi\Faker\Strategies\UniqueStrategy;
@@ -39,6 +40,21 @@ trait HasStrategies
     public function regex(string $regex): self
     {
         $this->strategies[] = new RegexStrategy($regex);
+
+        return $this;
+    }
+
+    /**
+     * Add an optional strategy.
+     *
+     * @param string $regex
+     *
+     * @return $this
+     * @throws \ErrorException
+     */
+    public function optional(float $weight = 0.5): self
+    {
+        $this->strategies[] = new OptionalStrategy($weight);
 
         return $this;
     }
