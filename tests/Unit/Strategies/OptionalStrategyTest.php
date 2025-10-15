@@ -23,18 +23,27 @@ class OptionalStrategyTest extends TestCase
         );
     }
 
-    public function testMultipleOptionalValues(): void
+    public function testOptionalStrategyBadWeight(): void
+    {
+        $this->expectException(\ErrorException::class);
+        $this->expectExceptionMessage('Weight must be between 0 and 100');
+
+        $faker = new Faker();
+        $faker->optional(101)->returnNumberBetween(0, 10);
+    }
+
+    public function testOptionalStrategyMultiplesValues(): void
     {
         $faker = new Faker();
 
         $intArray = [];
 
-        for($i = 0; $i < 10; $i++){
+        for ($i = 0; $i < 10; $i++) {
             $intArray[] = $faker->optional()->returnNumberBetween(0, 10);
         }
+
         var_dump($intArray);
         $this->assertTrue(count($intArray) != 10);
-
     }
 
 }
